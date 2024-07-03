@@ -1,0 +1,27 @@
+.button-tint {
+  align-items: center;
+  background-color: var(--primary-color-digital-bank);
+  border-radius: 20px;
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.button-tint .request-physical {
+  color: var(--background-colour);
+  font-family: "Work Sans", Helvetica;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+.request-physical {
+  text-align: center;
+}

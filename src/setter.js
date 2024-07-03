@@ -1,0 +1,1 @@
+document.documentElement.insertAdjacentHTML('beforeend', `<div id="stui_plc_u_arti"></div>`);
