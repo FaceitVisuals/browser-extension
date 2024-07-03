@@ -68,7 +68,7 @@ npm run build
 
 # Team
 
-- [Tim Cheung](https://github.com/shadiflo) (Creator & Developer, [@shadi\_](https://twitter.com/shadigm_))
+- [Florin ](https://github.com/shadiflo) (Creator & Developer, [@shadi\_](https://twitter.com/shadigm_))
 
 # Disclaimer
 
