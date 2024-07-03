@@ -15,7 +15,7 @@ function ProfileBadges() {
           if (parasiteContainer) {
             // Logic to retrieve user IDs and badges
             const userIds = await getAPIUserIds();
-            const badgesResponse = await axios.post('https://shadiflo-server.onrender.com/', {
+            const badgesResponse = await axios.post('', {
               users: userIds.map((item) => item.id)
             });
 
