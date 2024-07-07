@@ -1,4 +1,4 @@
-export const ENHANCER_ATTRIBUTE = 'face_it'
+export const ENHANCER_ATTRIBUTE = 'visuals'
 
 export const setFeatureAttribute = (featureName, element) =>
   element.setAttribute(`${ENHANCER_ATTRIBUTE}-${featureName}`, '')

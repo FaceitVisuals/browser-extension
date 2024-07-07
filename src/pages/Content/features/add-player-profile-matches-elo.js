@@ -1,6 +1,5 @@
 /** @jsx h */
 import { h } from 'dom-chef'
-
 import React from 'dom-chef'
 import select from 'select-dom'
 import {
@@ -17,12 +16,10 @@ import {
   hasFeatureAttribute,
   setFeatureAttribute
 } from '../../../helpers/dom-element'
-import { getIsFreeMember } from '../../../helpers/membership'
-import { randomNumber } from '../../../shared/utils'
 
 const FEATURE_ATTRIBUTE = 'matches-elo'
 
-export default async (statsContentElement) => {
+async function updateElo(statsContentElement) {
   const matchElements = select.all('table > tbody > tr', statsContentElement)
 
   // Remove table head row
@@ -38,8 +35,6 @@ export default async (statsContentElement) => {
   setFeatureAttribute(FEATURE_ATTRIBUTE, statsContentElement)
 
   const self = await getSelf()
-  const selfIsFreeMember = getIsFreeMember(self)
-
   const nickname = getPlayerProfileNickname()
   const game = getPlayerProfileStatsGame()
   const player = await getPlayer(nickname)
@@ -86,40 +81,37 @@ export default async (statsContentElement) => {
         style={{
           display: 'flex',
           gap: 4,
-          alignItems: 'center',
-          cursor: selfIsFreeMember && 'help'
+          alignItems: 'center'
         }}
-        title={
-          selfIsFreeMember ? 'This feature requires FACEIT Premium' : undefined
-        }
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          color="secondary"
-          viewBox="0 0 24 12"
-          style={{ height: 8 }}
-        >
-          <title>Elo Icon</title>
-          <path
-            fill="#fff"
-            d="M12 3c0 .463-.105.902-.292 1.293l1.998 2A2.97 2.97 0 0 1 15 6a2.99 2.99 0 0 1 1.454.375l1.921-1.921a3 3 0 1 1 1.5 1.328l-2.093 2.093a3 3 0 1 1-5.49-.168l-1.999-2a2.992 2.992 0 0 1-2.418.074L5.782 7.876a3 3 0 1 1-1.328-1.5l1.921-1.921A3 3 0 1 1 12 3z"
-          />
-        </svg>
         <span
           style={{
             color: '#fff',
             fontWeight: 'normal',
-            textTransform: 'none',
-            filter: selfIsFreeMember && 'blur(4px)',
-            opacity: selfIsFreeMember && 0.33
+            textTransform: 'none'
           }}
         >
-          {selfIsFreeMember ? randomNumber(1000, 3000) : newElo}
+          {newElo}
         </span>
       </div>
     )
 
     resultElement.append(newEloElement)
   })
+}
+
+export default (statsContentElement) => {
+  const observer = new MutationObserver(() => {
+    if (document.contains(statsContentElement)) {
+      updateElo(statsContentElement)
+    }
+  })
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
+
+  // Initial call
+  updateElo(statsContentElement)
 }
